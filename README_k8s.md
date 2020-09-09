@@ -8,6 +8,7 @@ Eventually this deployment could be merged into upstream, and these docs could t
 The four Dockerfiles are built through GitHub Actions and pushed to a GitHub Packages repository.
 This is DBCA's fork, so we use [DBCA's repo](https://github.com/orgs/dbca-wa/packages).
 ODK Central would push to their own [getodk repo](https://github.com/orgs/getodk/packages).
+An "Organization secret" named `CR_PAT` is defined at the GH org (https://github.com/orgs/dbca-wa/) and provides write access to that organization's GH packages repo.
 
 The containers are re-built here only when upstream changes are merged.
 
