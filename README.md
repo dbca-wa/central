@@ -23,9 +23,9 @@ Operations
 This repository serves administrative functions, but it also contains the Docker code for building and running a production Central stack.
 
 To learn how to run such a stack in production, please take a look at [our DigitalOcean installation guide](https://docs.getodk.org/central-install-digital-ocean/).
+An alternative stack based on Kubernetes is documented at /kompose.
 
 License
 =======
 
 All of ODK Central is licensed under the [Apache 2.0](https://raw.githubusercontent.com/getodk/central/master/LICENSE) License.
-

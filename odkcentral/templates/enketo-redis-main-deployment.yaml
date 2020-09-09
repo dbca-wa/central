@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -c -f odkcentral.yml
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: enketo-redis-main
+  name: enketo-redis-main
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: enketo-redis-main
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -c -f odkcentral.yml
+        kompose.version: 1.21.0 (992df58d8)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: enketo-redis-main
+    spec:
+      containers:
+      - args:
+        - redis-server
+        - /usr/local/etc/redis/redis.conf
+        image: redis:5
+        imagePullPolicy: ""
+        name: enketo-redis-main
+        resources: {}
+        volumeMounts:
+        - mountPath: /usr/local/etc/redis/redis.conf
+          name: enketo-redis-main-claim0
+          readOnly: true
+        - mountPath: /data
+          name: enketo-redis-main
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes:
+      - name: enketo-redis-main-claim0
+        persistentVolumeClaim:
+          claimName: enketo-redis-main-claim0
+          readOnly: true
+      - name: enketo-redis-main
+        persistentVolumeClaim:
+          claimName: enketo-redis-main
+status: {}

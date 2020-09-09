@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -c -f odkcentral.yml
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: mail
+  name: mail
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: mail
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -c -f odkcentral.yml
+        kompose.version: 1.21.0 (992df58d8)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: mail
+    spec:
+      containers:
+      - env:
+        - name: MAILNAME
+        image: itsissa/namshi-smtp:4.89-2.deb9u5
+        imagePullPolicy: ""
+        name: mail
+        resources: {}
+        volumeMounts:
+        - mountPath: /etc/exim4/_docker_additional_macros
+          name: mail-claim0
+          readOnly: true
+        - mountPath: /etc/exim4/domain.key
+          name: mail-claim1
+          readOnly: true
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes:
+      - name: mail-claim0
+        persistentVolumeClaim:
+          claimName: mail-claim0
+          readOnly: true
+      - name: mail-claim1
+        persistentVolumeClaim:
+          claimName: mail-claim1
+          readOnly: true
+status: {}

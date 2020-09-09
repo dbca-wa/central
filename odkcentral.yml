@@ -21,9 +21,7 @@ services:
 
   service:
     container_name: service
-    build:
-      context: .
-      dockerfile: service.dockerfile
+    image: "ghcr.io/dbca-wa/odk-service:latest"
     depends_on:
       - secrets
       - postgres
@@ -39,9 +37,7 @@ services:
     restart: always
   nginx:
     container_name: nginx
-    build:
-      context: .
-      dockerfile: nginx.dockerfile
+    image: "ghcr.io/dbca-wa/odk-nginx:latest"
     depends_on:
       - service
       - enketo
@@ -65,17 +61,13 @@ services:
     container_name: secrets
     volumes:
       - secrets:/etc/secrets
-    build:
-      context: .
-      dockerfile: secrets.dockerfile
+    image: "ghcr.io/dbca-wa/odk-secrets:latest"
     command: './generate-secrets.sh'
   enketo:
     container_name: enketo
     volumes:
       - secrets:/etc/secrets
-    build:
-      context: .
-      dockerfile: enketo.dockerfile
+    image: "ghcr.io/dbca-wa/odk-enketo:latest"
     restart: always
     depends_on:
       - secrets
@@ -110,3 +102,4 @@ volumes:
   enketo_redis_main:
   enketo_redis_cache:
   secrets:
+
