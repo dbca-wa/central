@@ -28,7 +28,7 @@ spec:
       - args:
         - redis-server
         - /usr/local/etc/redis/redis.conf
-        image: redis:5
+        image: ghcr.io/dbca-wa/odk-enketo-redis-main:latest
         imagePullPolicy: ""
         name: enketo-redis-main
         resources: {}

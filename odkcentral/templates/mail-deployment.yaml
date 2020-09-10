@@ -13,8 +13,7 @@ spec:
   selector:
     matchLabels:
       io.kompose.service: mail
-  strategy:
-    type: Recreate
+  strategy: {}
   template:
     metadata:
       annotations:
@@ -27,26 +26,11 @@ spec:
       containers:
       - env:
         - name: MAILNAME
-        image: itsissa/namshi-smtp:4.89-2.deb9u5
+        image: ghcr.io/dbca-wa/odk-mail:latest
         imagePullPolicy: ""
         name: mail
         resources: {}
-        volumeMounts:
-        - mountPath: /etc/exim4/_docker_additional_macros
-          name: mail-claim0
-          readOnly: true
-        - mountPath: /etc/exim4/domain.key
-          name: mail-claim1
-          readOnly: true
       restartPolicy: Always
       serviceAccountName: ""
-      volumes:
-      - name: mail-claim0
-        persistentVolumeClaim:
-          claimName: mail-claim0
-          readOnly: true
-      - name: mail-claim1
-        persistentVolumeClaim:
-          claimName: mail-claim1
-          readOnly: true
+      volumes: null
 status: {}

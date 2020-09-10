@@ -1,4 +1,4 @@
-name: Docker
+name: Docker enketo-redis-main
 
 on:
   push:

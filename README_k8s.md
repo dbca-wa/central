@@ -14,6 +14,8 @@ The containers are re-built here only when upstream changes are merged.
 
 ### Let docker-compose use pre-built containers
 An alternative `odkcentral.yml` links to the pre-built images.
+The two Redis images are also built to hard-code the config files, replacing the need to link to the local copies of the [redis config files](https://github.com/dbca-wa/central/tree/master/files/enketo).
+
 The original `docker-compose.yml` still builds images locally.
 
 ### Translate compose to k8s

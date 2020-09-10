@@ -1,5 +1,6 @@
 version: "3"
 services:
+
   postgres:
     image: "postgres:9.6"
     volumes:
@@ -9,12 +10,10 @@ services:
       POSTGRES_PASSWORD: odk
       POSTGRES_DATABASE: odk
     restart: always
+
   mail:
     container_name: mail
-    image: "itsissa/namshi-smtp:4.89-2.deb9u5"
-    volumes:
-      - ./files/dkim/config:/etc/exim4/_docker_additional_macros:ro
-      - ./files/dkim/rsa.private:/etc/exim4/domain.key:ro
+    image: "ghcr.io/dbca-wa/odk-mail:latest"
     environment:
       - MAILNAME=${DOMAIN}
     restart: always
@@ -35,6 +34,7 @@ services:
       - DOMAIN=${DOMAIN}
     command: [ "./wait-for-it.sh", "postgres:5432", "--", "./start-odk.sh" ]
     restart: always
+
   nginx:
     container_name: nginx
     image: "ghcr.io/dbca-wa/odk-nginx:latest"
@@ -58,16 +58,17 @@ services:
     restart: always
 
   secrets:
+    image: "ghcr.io/dbca-wa/odk-secrets:latest"
     container_name: secrets
     volumes:
       - secrets:/etc/secrets
-    image: "ghcr.io/dbca-wa/odk-secrets:latest"
     command: './generate-secrets.sh'
+
   enketo:
+    image: "ghcr.io/dbca-wa/odk-enketo:latest"
     container_name: enketo
     volumes:
       - secrets:/etc/secrets
-    image: "ghcr.io/dbca-wa/odk-enketo:latest"
     restart: always
     depends_on:
       - secrets
@@ -76,8 +77,9 @@ services:
     environment:
       - DOMAIN=${DOMAIN}
       - SUPPORT_EMAIL=${SYSADMIN_EMAIL}
+
   enketo_redis_main:
-    image: redis:5
+    image: "ghcr.io/dbca-wa/odk-enketo-redis-main:latest"
     container_name: enketo_redis_main
     volumes:
       - enketo_redis_main:/data
@@ -85,8 +87,9 @@ services:
       - redis-server
       - /usr/local/etc/redis/redis.conf
     restart: always
+
   enketo_redis_cache:
-    image: redis:5
+    image: "ghcr.io/dbca-wa/odk-enketo-redis-cache:latest"
     container_name: enketo_redis_cache
     volumes:
       - enketo_redis_cache:/data
