@@ -76,3 +76,12 @@ or deploy to Rancher:
 
 ```
 * For workload "service", mount a volume of type "Config Map" at mount point `/usr/odk/config` using above config map.
+* For workload "mail", follow the official docs on [configuring DKIM](https://docs.getodk.org/central-install-digital-ocean/#configuring-dkim) to create an RSA keypair.
+  Create a configmap with a key `domain.key` and the contents of rsa.private
+  as value and map the configmap as volume at `/etc/exim4`.
+
+### Update k8s stack
+Once all volumes are created and all containers are up and running,
+the containers can be updated by "redeploying" them. If linked to the ":latest" tag, Rancher will download the latest version of the image and restart the container.
+Unless breaking changes are introduced, this should upgrade ODK Central with no downtime.
+It is advisable to spin up an additional test deployment identical to the production deployment to verify each upgrade.
