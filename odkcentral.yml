@@ -80,7 +80,6 @@ services:
     image: redis:5
     container_name: enketo_redis_main
     volumes:
-      - ./files/enketo/redis-enketo-main.conf:/usr/local/etc/redis/redis.conf:ro
       - enketo_redis_main:/data
     command:
       - redis-server
@@ -90,7 +89,6 @@ services:
     image: redis:5
     container_name: enketo_redis_cache
     volumes:
-      - ./files/enketo/redis-enketo-cache.conf:/usr/local/etc/redis/redis.conf:ro
       - enketo_redis_cache:/data
     command:
       - redis-server
@@ -102,4 +100,5 @@ volumes:
   enketo_redis_main:
   enketo_redis_cache:
   secrets:
+
 

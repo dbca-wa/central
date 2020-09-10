@@ -33,18 +33,11 @@ spec:
         name: enketo-redis-cache
         resources: {}
         volumeMounts:
-        - mountPath: /usr/local/etc/redis/redis.conf
-          name: enketo-redis-cache-claim0
-          readOnly: true
         - mountPath: /data
           name: enketo-redis-cache
       restartPolicy: Always
       serviceAccountName: ""
       volumes:
-      - name: enketo-redis-cache-claim0
-        persistentVolumeClaim:
-          claimName: enketo-redis-cache-claim0
-          readOnly: true
       - name: enketo-redis-cache
         persistentVolumeClaim:
           claimName: enketo-redis-cache
