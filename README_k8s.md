@@ -47,6 +47,11 @@ or deploy to Rancher:
 * Decide on a namespace (e.g. `odk-k8s-prod`) and use this namespace for each step below.
 * Import the YAML files from the `k8s` folder in the correct order into the chosen namespace:
   first volume claims, then dependencies (postgres, redis, secrets, mail, enketo), then service and nginx.
+* Volume "secrets":
+  * Edit, remove command (`./generate-secrets.sh`), add Console "interactive".
+  * Crashes when running with command.
+  * Connect to console, run `./generate-secrets.sh`.
+  * There's gotta be a better way to run this container.
 * To use custom db, mail, or other settings for the backend ("service"), create a config map in the same namespace with key
   ` default.json` and value:
 
