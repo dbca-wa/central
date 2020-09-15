@@ -52,6 +52,8 @@ or deploy to Rancher:
   * Crashes when running with command.
   * Connect to console, run `./generate-secrets.sh`.
   * There's gotta be a better way to run this container.
+* Volume "enketo":
+  * Config specifies the names of Redis containers with underscores, which are invalid for K8s. Change to dash before rebuilding Docker image.
 * To use custom db, mail, or other settings for the backend ("service"), create a config map in the same namespace with key
   ` default.json` and value:
 
@@ -60,22 +62,47 @@ or deploy to Rancher:
     "default": {
         "database": {
             "host": "DBHOST",
-            "user": "DBUSER",
+            "user": "DBUSER@DBHOST",
             "password": "DBPASS",
             "database": "DBNAME",
             "ssl": {"rejectUnauthorized": false}
         },
-        "server": {"port": 8383},
+        "server": {
+            "port": 8383
+        },
         "email": {
             "serviceAccount": "no-reply-odk@dbca.wa.gov.au",
             "transport": "smtp",
-            "transportOpts": {
-                "host": "smtp.lan.fyi",
-                "port": 25
-            }
+            "transportOpts": {"host": "smtp.lan.fyi", "port": 25}
         },
-        "env": {"domain": "odkc.dbca.wa.gov.au"},
-    "external": {}
+        "xlsform": {
+            "host": "localhost",
+            "port": 5000
+        },
+        "enketo": {},
+        "env": {
+            "domain": "odkc.dbca.wa.gov.au"
+        },
+        "external": {
+        "google": {
+            "clientId":     "660095633112-h7bhsjenhp1agd0c4v3cmqk6bccgkdu0.apps.googleusercontent.com",
+            "clientSecret": "lzu2vK1NFqqd6Y5HiN-7ByvE"
+        },
+        "sentry": {}
+        }
+    },
+    "test": {
+        "database": {
+            "host": "localhost",
+            "user": "jubilant",
+            "password": "jubilant",
+            "database": "jubilant_test"
+        },
+        "email": {
+            "serviceAccount": "no-reply@opendatakit.org",
+            "transport": "json",
+            "transportOpts": { "newline": "unix" }
+        }
     }
 }
 

@@ -10,8 +10,11 @@ WORKDIR ${ENKETO_SRC_DIR}
 # care about anything the server needs. because the client config is baked at
 # build time, we therefore hand it the untemplated config.
 
-COPY files/enketo/config.json.template ${ENKETO_SRC_DIR}/config/config.json.template
-COPY files/enketo/config.json.template ${ENKETO_SRC_DIR}/config/config.json
+# Kubernetes does not support underscores in container names
+# kompose translates redis_enketo_* to dashes (adjusts container name)
+# configk8s specifies dependencies as adjusted redis_enketo_*
+COPY files/enketo/configk8s.json.template ${ENKETO_SRC_DIR}/config/config.json.template
+COPY files/enketo/configk8s.json.template ${ENKETO_SRC_DIR}/config/config.json
 COPY files/enketo/start-enketo.sh ${ENKETO_SRC_DIR}/start-enketo.sh
 
 RUN apt-get update; apt-get install gettext-base
