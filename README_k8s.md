@@ -71,25 +71,22 @@ or deploy to Rancher:
             "port": 8383
         },
         "email": {
-            "serviceAccount": "no-reply-odk@dbca.wa.gov.au",
+            "serviceAccount": "no-reply-odk@DOMAIN",
             "transport": "smtp",
-            "transportOpts": {"host": "smtp.lan.fyi", "port": 25}
+            "transportOpts": {"host": "SMTPSERVER", "port": 25}
         },
         "xlsform": {
             "host": "localhost",
             "port": 5000
         },
-        "enketo": {},
+        "enketo": {
+            "url": "enketo:8005/-",
+            "apiKey": "ENKETO_API_KEY"
+            },
         "env": {
             "domain": "odkc.dbca.wa.gov.au"
         },
-        "external": {
-        "google": {
-            "clientId":     "660095633112-h7bhsjenhp1agd0c4v3cmqk6bccgkdu0.apps.googleusercontent.com",
-            "clientSecret": "lzu2vK1NFqqd6Y5HiN-7ByvE"
-        },
-        "sentry": {}
-        }
+        "external": {}
     },
     "test": {
         "database": {
@@ -99,7 +96,7 @@ or deploy to Rancher:
             "database": "jubilant_test"
         },
         "email": {
-            "serviceAccount": "no-reply@opendatakit.org",
+            "serviceAccount": "no-reply@DOMAIN",
             "transport": "json",
             "transportOpts": { "newline": "unix" }
         }
@@ -107,6 +104,7 @@ or deploy to Rancher:
 }
 
 ```
+
 * For workload "service", mount a volume of type "Config Map" at mount point `/usr/odk/config` using above config map.
 * For workload "mail", follow the official docs on [configuring DKIM](https://docs.getodk.org/central-install-digital-ocean/#configuring-dkim) to create an RSA keypair.
   Create a configmap with a key `domain.key` and the contents of rsa.private
