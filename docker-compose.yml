@@ -34,6 +34,15 @@ services:
       - DOMAIN=${DOMAIN}
       - HTTPS_PORT=${HTTPS_PORT:-443}
       - SYSADMIN_EMAIL=${SYSADMIN_EMAIL}
+      - SERVICE_EMAIL=${SERVICE_EMAIL}
+      - DB_HOST=${DB_HOST}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - DB_SSL=${DB_SSL}  # true|false
+      - EMAIL_HOST=${EMAIL_HOST}
+      - EMAIL_PORT=${EMAIL_PORT:-25}
+      - EMAIL_SECURE=${EMAIL_SECURE}
     command: [ "./wait-for-it.sh", "postgres:5432", "--", "./start-odk.sh" ]
     restart: always
     logging:
@@ -46,14 +55,12 @@ services:
       - service
       - enketo
     environment:
-      - SSL_TYPE=${SSL_TYPE:-letsencrypt}
+      - SSL_TYPE=${SSL_TYPE:-selfsign}
       - DOMAIN=${DOMAIN}
       - CERTBOT_EMAIL=${SYSADMIN_EMAIL}
     ports:
       - "${HTTP_PORT:-80}:80"
       - "${HTTPS_PORT:-443}:443"
-    healthcheck:
-      test: [ "CMD-SHELL", "nc -z localhost 80 || exit 1" ]
     restart: always
     logging:
       driver: local

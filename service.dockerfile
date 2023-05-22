@@ -21,4 +21,3 @@ COPY files/service/config.json.template /usr/share/odk/
 COPY files/service/odk-cmd /usr/bin/
 
 EXPOSE 8383
-

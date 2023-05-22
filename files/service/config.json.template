@@ -1,17 +1,19 @@
 {
   "default": {
     "database": {
-      "host": "postgres",
-      "user": "odk",
-      "password": "odk",
-      "database": "odk"
+      "host": "${DB_HOST}",
+      "user": "${DB_USER}",
+      "password": "${DB_PASSWORD}",
+      "database": "${DB_NAME}",
+      "ssl": ${DB_SSL}
     },
     "email": {
-      "serviceAccount": "no-reply@${DOMAIN}",
+      "serviceAccount": "${SERVICE_EMAIL}",
       "transport": "smtp",
       "transportOpts": {
-        "host": "mail",
-        "port": 25
+        "host": "${EMAIL_HOST}",
+        "port": ${EMAIL_PORT},
+        "secure": ${EMAIL_SECURE}
       }
     },
     "xlsform": {

@@ -1,6 +1,11 @@
-CONFIG_PATH=/usr/odk/config/local.json
+#!/usr/bin/env bash
+
 echo "generating local service configuration.."
-/bin/bash -c "ENKETO_API_KEY=$(cat /etc/secrets/enketo-api-key) envsubst '\$DOMAIN:\$HTTPS_PORT:\$SYSADMIN_EMAIL:\$ENKETO_API_KEY' < /usr/share/odk/config.json.template > $CONFIG_PATH"
+
+ENKETO_API_KEY=$(cat /etc/secrets/enketo-api-key) \
+    envsubst '$DOMAIN $BASE_URL $SYSADMIN_EMAIL $SERVICE_EMAIL $ENKETO_API_KEY $HTTPS_PORT $DB_HOST $DB_USER $DB_PASSWORD $DB_NAME $DB_SSL $EMAIL_HOST $EMAIL_PORT $EMAIL_SECURE' \
+    < /usr/share/odk/config.json.template \
+    > /usr/odk/config/local.json
 
 echo "running migrations.."
 node -e 'const { withDatabase, migrate } = require("./lib/model/migrate"); withDatabase(require("config").get("default.database"))(migrate);'
