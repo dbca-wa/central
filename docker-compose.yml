@@ -85,13 +85,13 @@ services:
     restart: always
     depends_on:
       - secrets
-      - enketo_redis_main
-      - enketo_redis_cache
+      - enketo-redis-main
+      - enketo-redis-cache
     environment:
       - DOMAIN=${DOMAIN}
       - SUPPORT_EMAIL=${SYSADMIN_EMAIL}
       - HTTPS_PORT=${HTTPS_PORT:-443}
-  enketo_redis_main:
+  enketo-redis-main:
     image: redis:5
     volumes:
       - ./files/enketo/redis-enketo-main.conf:/usr/local/etc/redis/redis.conf:ro
@@ -100,7 +100,7 @@ services:
       - redis-server
       - /usr/local/etc/redis/redis.conf
     restart: always
-  enketo_redis_cache:
+  enketo-redis-cache:
     image: redis:5
     volumes:
       - ./files/enketo/redis-enketo-cache.conf:/usr/local/etc/redis/redis.conf:ro

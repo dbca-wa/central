@@ -3,3 +3,4 @@
 *.swo
 /.env
 /version.txt
+odk_uat.yml
