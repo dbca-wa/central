@@ -59,6 +59,7 @@ server {
   }
 
   location /csp-report {
-    proxy_pass https://${SENTRY_ORG_SUBDOMAIN}.ingest.sentry.io/api/${SENTRY_PROJECT}/security/?sentry_key=${SENTRY_KEY};
+    return 200 'CSP report discarded.';
+    add_header Content-Type text/plain;
   }
 }
