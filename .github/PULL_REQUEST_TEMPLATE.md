@@ -1,5 +1,7 @@
 Closes #
 
+<!-- Please branch off and target the next branch unless you are only changing documentation like the readme. The master branch is a stable branch deployed in production. -->
+
 #### What has been done to verify that this works as intended?
 
 #### Why is this the best possible solution? Were any other approaches considered?
@@ -10,4 +12,4 @@ Closes #
 
 #### Before submitting this PR, please make sure you have:
 
-- [ ] verified that any code or assets from external sources are properly credited in comments.
+- [ ] verified that any code or assets from external sources are properly credited in comments or that everything is internally sourced

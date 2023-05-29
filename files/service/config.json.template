@@ -8,12 +8,17 @@
       "ssl": ${DB_SSL}
     },
     "email": {
-      "serviceAccount": "${SERVICE_EMAIL}",
+      "serviceAccount": "${EMAIL_FROM}",
       "transport": "smtp",
       "transportOpts": {
         "host": "${EMAIL_HOST}",
         "port": ${EMAIL_PORT},
-        "secure": ${EMAIL_SECURE}
+        "secure": ${EMAIL_SECURE},
+        "ignoreTLS": ${EMAIL_IGNORE_TLS},
+        "auth": {
+          "user": "${EMAIL_USER}",
+          "pass": "${EMAIL_PASSWORD}"
+        }
       }
     },
     "xlsform": {
@@ -25,14 +30,14 @@
       "apiKey": "${ENKETO_API_KEY}"
     },
     "env": {
-      "domain": "https://${DOMAIN}:${HTTPS_PORT}",
+      "domain": "${BASE_URL}",
       "sysadminAccount": "${SYSADMIN_EMAIL}"
     },
     "external": {
       "sentry": {
-        "orgSubdomain": "o130137",
-        "key": "3cf75f54983e473da6bd07daddf0d2ee",
-        "project": "1298632"
+        "orgSubdomain": "${SENTRY_ORG_SUBDOMAIN}",
+        "key": "${SENTRY_KEY}",
+        "project": "${SENTRY_PROJECT}"
       }
     }
   }
