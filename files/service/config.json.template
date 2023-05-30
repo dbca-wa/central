@@ -33,12 +33,6 @@
       "domain": "${BASE_URL}",
       "sysadminAccount": "${SYSADMIN_EMAIL}"
     },
-    "external": {
-      "sentry": {
-        "orgSubdomain": "${SENTRY_ORG_SUBDOMAIN}",
-        "key": "${SENTRY_KEY}",
-        "project": "${SENTRY_PROJECT}"
-      }
-    }
+    "external": {}
   }
 }

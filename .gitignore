@@ -6,6 +6,8 @@
 
 /files/allow-postgres14-upgrade
 /files/postgres14/upgrade/*
-!/files/postgres14/upgrade/check-available-space
+/files/postgres14/upgrade/check-available-space
 
 /files/local/customssl/*.pem
+
+odk_uat.yml

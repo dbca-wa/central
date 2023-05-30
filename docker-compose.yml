@@ -81,7 +81,7 @@ services:
     environment:
       - DOMAIN=${DOMAIN}
       - CERTBOT_EMAIL=${SYSADMIN_EMAIL}
-      - SSL_TYPE=${SSL_TYPE:-letsencrypt}
+      - SSL_TYPE=${SSL_TYPE:-upstream}
       - SENTRY_ORG_SUBDOMAIN=${SENTRY_ORG_SUBDOMAIN:-o130137}
       - SENTRY_KEY=${SENTRY_KEY:-3cf75f54983e473da6bd07daddf0d2ee}
       - SENTRY_PROJECT=${SENTRY_PROJECT:-1298632}
@@ -114,13 +114,13 @@ services:
     restart: always
     depends_on:
       - secrets
-      - enketo_redis_main
-      - enketo_redis_cache
+      - enketo-redis-main
+      - enketo-redis-cache
     environment:
       - DOMAIN=${DOMAIN}
       - SUPPORT_EMAIL=${SYSADMIN_EMAIL}
       - HTTPS_PORT=${HTTPS_PORT:-443}
-  enketo_redis_main:
+  enketo-redis-main:
     image: redis:7.0.8
     volumes:
       - ./files/enketo/redis-enketo-main.conf:/usr/local/etc/redis/redis.conf:ro
@@ -129,7 +129,7 @@ services:
       - redis-server
       - /usr/local/etc/redis/redis.conf
     restart: always
-  enketo_redis_cache:
+  enketo-redis-cache:
     image: redis:7.0.8
     volumes:
       - ./files/enketo/redis-enketo-cache.conf:/usr/local/etc/redis/redis.conf:ro
