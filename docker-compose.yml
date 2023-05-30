@@ -120,6 +120,7 @@ services:
       - DOMAIN=${DOMAIN}
       - SUPPORT_EMAIL=${SYSADMIN_EMAIL}
       - HTTPS_PORT=${HTTPS_PORT:-443}
+  # NOTE: the enketo-redis-* services are renamed from upstream for compatibility with k8s
   enketo-redis-main:
     image: redis:7.0.8
     volumes:
@@ -129,6 +130,7 @@ services:
       - redis-server
       - /usr/local/etc/redis/redis.conf
     restart: always
+  # NOTE: the enketo-redis-* services are renamed from upstream for compatibility with k8s
   enketo-redis-cache:
     image: redis:7.0.8
     volumes:
